@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DbOperationWithEFCoreApp.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DbOperationWithEFCoreApp.Data
 {
@@ -8,5 +9,11 @@ namespace DbOperationWithEFCoreApp.Data
         {
             
         }
+
+        public DbSet<Book> Books { get; set; }
+        public DbSet<BookPrice> BookPrices { get; set; }
+        public DbSet<CurrencyType> CurrencyTypes { get; set; }
+        public DbSet<Language> Languages { get; set; }
+
     }
 }

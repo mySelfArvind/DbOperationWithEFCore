@@ -5,3 +5,5 @@
 /EFCoreProject/.vs/EFCoreProject
 /EFCoreProject/DbOperationWithEFCoreApp/obj
 /EFCoreProject/DbOperationWithEFCoreApp/DbOperationWithEFCoreApp.csproj.user
+/EFCoreProject/.vs/ProjectEvaluation
+/.gitignore
