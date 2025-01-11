@@ -30,6 +30,20 @@ namespace DbOperationWithEFCoreApp
                 app.UseSwaggerUI();
             }
 
+            //It is for production environment
+            if (app.Environment.EnvironmentName == "Production")
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            //It is for Testing environment
+            if (app.Environment.EnvironmentName == "Testing")
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
