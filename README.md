@@ -1,0 +1,2 @@
+# DbOperationWithEFCore
+Entity Framework Core
