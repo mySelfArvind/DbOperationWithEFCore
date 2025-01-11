@@ -1,0 +1,69 @@
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS generated files #
+.DS_Store
+Thumbs.db
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# .NET Core dependencies
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding files
+ScaffoldingReadMe.txt
+
+# DotNet CLI configuration files
+*.db
+*.pidb
+
+# ASP.NET Core files
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+appsettings.local.json
+
+# Azure files
+local.settings.json
+azure-pipelines.yml
+
+# JetBrains Rider
+.idea/
+
+# User-specific files
+.vscode/
+.vs/
+*.swp
+*.sln.iml
+
+# npm packages
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Visual Studio Code
+.vscode/*
+
+# Others
+*.cache
+*.tmp
+*.bak
+*.old
