@@ -22,6 +22,9 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+#folders
+Migrations/
+
 # .NET Core dependencies
 project.lock.json
 project.fragment.lock.json
