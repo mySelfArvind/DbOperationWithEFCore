@@ -23,7 +23,9 @@ namespace DbOperationWithEFCoreApp.Data
                 new CurrencyType() { Id = 2, Title = "EUR", Description = "Euro " },
                 new CurrencyType() { Id = 3, Title = "INR", Description = "Indian Rupee" },
                 new CurrencyType() { Id = 4, Title = "JPY", Description = "Japanese Yen" },
-                new CurrencyType() { Id = 5, Title = "GBP", Description = "British Pound Sterling" }
+                new CurrencyType() { Id = 5, Title = "GBP", Description = "British Pound Sterling" },
+                new CurrencyType() { Id = 6, Title = "CNY", Description = "Chinese Yuan Renminbi" },
+                new CurrencyType() { Id = 7, Title = "AUD", Description = "Australian Dollar" }
                 );
         }
 
