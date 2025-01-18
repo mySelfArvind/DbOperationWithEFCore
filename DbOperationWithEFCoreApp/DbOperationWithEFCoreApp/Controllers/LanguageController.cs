@@ -1,4 +1,5 @@
 ﻿using DbOperationWithEFCoreApp.Data;
+using DbOperationWithEFCoreApp.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,23 @@ namespace DbOperationWithEFCoreApp.Controllers
         public async Task<IActionResult> GetAllLanguages()
         {
             return Ok(await _appDbContext.Language.ToListAsync());
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetLanguageWithId([FromRoute] int id)
+        {
+            var language = await _appDbContext.Language.FirstOrDefaultAsync(l => l.Id == id);
+            if (language == null)
+                return NotFound();
+            return Ok(language);
+        }
+        [HttpGet("{title}")]
+        public async Task<IActionResult> GetLanguageWithTitle([FromRoute] string title)
+        {
+            var language = await _appDbContext.Language.FirstOrDefaultAsync(l => l.Title == title);
+            if (language == null)
+                return NotFound();
+            return Ok(language);
         }
     }
 }
