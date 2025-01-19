@@ -39,15 +39,15 @@ namespace DbOperationWithEFCoreApp.Controllers
         /// </summary>
         /// <param name="title"></param>
         /// <returns></returns>
-        [HttpGet("{title}")]
-        public async Task<IActionResult> GetCurrencyByTitle([FromRoute] string title)
-        {
-            //var result = await _appDbContext.CurrencyType.Where(c => c.Title == title).FirstOrDefaultAsync();
-            var result = await _appDbContext.CurrencyType.SingleOrDefaultAsync(c => c.Title == title);
-            if (result == null)
-                return NotFound();
-            return Ok(result);
-        }
+        //[HttpGet("{title}")]
+        //public async Task<IActionResult> GetCurrencyByTitle([FromRoute] string title)
+        //{
+        //    //var result = await _appDbContext.CurrencyType.Where(c => c.Title == title).FirstOrDefaultAsync();
+        //    var result = await _appDbContext.CurrencyType.SingleOrDefaultAsync(c => c.Title == title);
+        //    if (result == null)
+        //        return NotFound();
+        //    return Ok(result);
+        //}
 
         /// <summary>
         /// get currency based on title, if more than one record available with same title then first will be considered
@@ -97,5 +97,31 @@ namespace DbOperationWithEFCoreApp.Controllers
         //        return NotFound();
         //    return Ok(result);
         //}
+
+        /// <summary>
+        /// get all the currencies with the given title
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        //[HttpGet("{title}")]
+        //public async Task<IActionResult> GetAllCurrencyWithTitle([FromRoute] string title)
+        //{
+        //    var result = await _appDbContext.CurrencyType.Where(l => l.Title == title).ToListAsync();
+        //    if(result == null)
+        //        return NotFound();
+        //    return Ok(result);
+        //}
+
+        ///<summary>
+        ///getting all the currencies with given currency id; here we're using Contains() method which is checking if the given id is present in database
+        [HttpPost("all")]
+        public async Task<IActionResult> GetAllCurrenciesWithId([FromBody] List<int> ids)
+        {
+            var result = await _appDbContext.CurrencyType.Where(c => ids.Contains(c.Id)).ToListAsync();
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
     }
 }
