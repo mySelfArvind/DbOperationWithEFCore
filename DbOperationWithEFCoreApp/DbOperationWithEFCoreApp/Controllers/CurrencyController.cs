@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using DbOperationWithEFCoreApp.Data;
 using Microsoft.EntityFrameworkCore;
+using DbOperationWithEFCoreApp.Entities;
+using DbOperationWithEFCoreApp.DTO;
 namespace DbOperationWithEFCoreApp.Controllers
 {
     [Route("api/currencies")]
@@ -117,7 +119,7 @@ namespace DbOperationWithEFCoreApp.Controllers
         [HttpPost("all")]
         public async Task<IActionResult> GetAllCurrenciesWithId([FromBody] List<int> ids)
         {
-            var result = await _appDbContext.CurrencyType.Where(c => ids.Contains(c.Id)).ToListAsync();
+            var result = await _appDbContext.CurrencyType.Where(c => ids.Contains(c.Id)).Select(c => new CurrencyDTO{ Id = c.Id, Title = c.Title }).ToListAsync();
             if (result == null)
                 return NotFound();
             return Ok(result);
