@@ -36,5 +36,6 @@ namespace DbOperationWithEFCoreApp.Data
         public DbSet<CurrencyType> CurrencyType { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<Price> Price { get; set; }
+        public DbSet<Author> Author { get; set; }
     }
 }
