@@ -13,6 +13,15 @@ namespace DbOperationWithEFCoreApp.Controllers
         [HttpPost("")]
         public async Task<IActionResult> AddNewBook([FromBody] Book book)
         {
+            if (book.Author != null)
+            {
+                var author = new Author()
+                {
+                    Name = book.Author.Name,
+                    Email = book.Author.Email
+                };
+                book.Author = author;
+            }
             book.CreatedOn = System.DateTime.Now;
             _dbContext.Book.Add(book);
             await _dbContext.SaveChangesAsync();
@@ -22,7 +31,7 @@ namespace DbOperationWithEFCoreApp.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAllBooks()
         {
-            var result = await _dbContext.Book.Select(b => new {Id = b.Id, Title = b.Title, Description = b.Description, NoOfPages = b.NoOfPages, IsActive = b.IsActive, CreatedOn = b.CreatedOn, LanguageId = b.LanguageId}).ToListAsync();
+            var result = await _dbContext.Book.Select(b => new { Id = b.Id, Title = b.Title, Description = b.Description, NoOfPages = b.NoOfPages, IsActive = b.IsActive, CreatedOn = b.CreatedOn, LanguageId = b.LanguageId }).ToListAsync();
             if (result == null)
                 return NotFound();
             return Ok(result);
