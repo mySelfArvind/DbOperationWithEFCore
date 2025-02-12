@@ -44,5 +44,23 @@ namespace DbOperationWithEFCoreApp.Controllers
             await _dbContext.SaveChangesAsync();
             return Ok(books);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBook([FromRoute] int id, [FromBody] Book book)
+        {
+            var result = await _dbContext.Book.FindAsync(id);
+            if (result == null)
+                return NotFound();
+
+            result.Title = book.Title;
+            result.Description = book.Description;
+            result.NoOfPages = book.NoOfPages;
+
+            await _dbContext.SaveChangesAsync();
+            return Ok(result);
+
+        }
+
+
     }
 }
