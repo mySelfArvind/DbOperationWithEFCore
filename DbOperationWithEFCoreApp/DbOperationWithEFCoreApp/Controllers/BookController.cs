@@ -101,6 +101,26 @@ namespace DbOperationWithEFCoreApp.Controllers
             
         }
 
+        [HttpDelete]
+        [Route("BulkDelete")]
+        public async Task<IActionResult> BulkDelete([FromBody] List<int> ids)
+        {
+            var book = await _dbContext.Book.Where(b => ids.Contains(b.Id)).ToListAsync();
+            if(book == null) return NotFound();
+            _dbContext.Book.RemoveRange(book);
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("BulkDeleteSingleHit")]
+        public async Task<IActionResult> BulkDeleteInSingleHit([FromBody] List<int> ids)
+        {
+            await _dbContext.Book.Where(b => ids.Contains(b.Id)).ExecuteDeleteAsync();
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
 
     }
 }
