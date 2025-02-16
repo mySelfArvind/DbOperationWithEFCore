@@ -13,7 +13,7 @@ namespace DbOperationWithEFCoreApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAuthors()
         {
-            var result = await _dbContext.Author.ToListAsync();
+            var result = await _dbContext.Author.AsNoTracking().ToListAsync();
             if(result == null)
                 return NotFound();
             return Ok(result);
