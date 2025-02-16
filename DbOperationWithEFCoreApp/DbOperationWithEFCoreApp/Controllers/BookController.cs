@@ -45,20 +45,60 @@ namespace DbOperationWithEFCoreApp.Controllers
             return Ok(books);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBook([FromRoute] int id, [FromBody] Book book)
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> UpdateBookAsync([FromRoute] int id, [FromBody] Book book)
         {
-            var result = await _dbContext.Book.FindAsync(id);
-            if (result == null)
-                return NotFound();
-
-            result.Title = book.Title;
-            result.Description = book.Description;
-            result.NoOfPages = book.NoOfPages;
+            var dbBook = await _dbContext.Book.FindAsync(id);
+            if(dbBook == null) return NotFound();
+            dbBook.Title = book.Title;
+            dbBook.Description = book.Description;
 
             await _dbContext.SaveChangesAsync();
-            return Ok(result);
 
+            return Ok(dbBook);
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> UpdateInSingleHitAsync([FromBody] Book model)
+        {
+            _dbContext.Book.Update(model);
+            await _dbContext.SaveChangesAsync();
+            return Ok(model);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> BulkUpdateAsync()
+        {
+           await _dbContext.Book.Where(b => b.LanguageId == 1).ExecuteUpdateAsync(x =>x.
+           SetProperty(b => b.AuthorId, 1).
+           SetProperty(b => b.CreatedOn, System.DateTime.Now)
+            );
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteBook([FromRoute] int id)
+        {
+            var book = await _dbContext.Book.FindAsync(id);
+            if(book == null) return NotFound(); 
+            _dbContext.Book.Remove(book);
+            await _dbContext.SaveChangesAsync();
+            return Ok(book);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteBookInSingleHit([FromRoute] int id)
+        {
+            var book = new Book(){ Id = id };
+            _dbContext.Entry(book).State = EntityState.Deleted;
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+            
         }
 
 
