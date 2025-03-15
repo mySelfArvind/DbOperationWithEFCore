@@ -31,14 +31,14 @@ namespace DbOperationWithEFCoreApp.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAllBooks()
         {
-            var result = await _dbContext.Book.Select(b => new 
-            { 
-                BookId = b.Id, 
-                Title = b.Title, 
-                Description = b.Description, 
-                NoOfPages = b.NoOfPages, 
-                IsActive = b.IsActive, 
-                CreatedOn = b.CreatedOn, 
+            var result = await _dbContext.Book.Select(b => new
+            {
+                BookId = b.Id,
+                Title = b.Title,
+                Description = b.Description,
+                NoOfPages = b.NoOfPages,
+                IsActive = b.IsActive,
+                CreatedOn = b.CreatedOn,
                 BookLanguageId = b.LanguageId,
                 AuthorName = b.Author.Name,
                 Language = b.Language.Title
@@ -132,6 +132,12 @@ namespace DbOperationWithEFCoreApp.Controllers
             return Ok();
         }
 
-
+        [HttpGet("")]
+        public async Task<IActionResult> GetAllBookWithAuthorAndLanguageEagerAsync()
+        {
+            var result = await _dbContext.Book.Include(b => b.Author).ThenInclude(a => a.Address).ToListAsync();
+            if (result == null) return NotFound();
+            return Ok(result);
+        }
     }
 }

@@ -27,7 +27,18 @@ namespace DbOperationWithEFCoreApp.Data
                 new CurrencyType() { Id = 6, Title = "CNY", Description = "Chinese Yuan Renminbi" },
                 new CurrencyType() { Id = 7, Title = "AUD", Description = "Australian Dollar" }
                 );
+
+            modelBuilder.Entity<Address>().HasData(
+                new Address() { Id = 1, City = "Mumbai", State = "Maharashtra", PostalCode = "400086", Country = "India" },
+                new Address() { Id = 2, City = "Pune", State = "Maharashtra", PostalCode = "411001", Country = "India" },
+                new Address() { Id = 3, City = "Delhi", State = "Delhi", PostalCode = "110001", Country = "India" },
+                new Address() { Id = 4, City = "Bengaluru", State = "Karnataka", PostalCode = "560001", Country = "India" },
+                new Address() { Id = 5, City = "Chennai", State = "Tamil Nadu", PostalCode = "600001", Country = "India" },
+                new Address() { Id = 6, City = "Hyderabad", State = "Telangana", PostalCode = "500001", Country = "India" }
+            );
+
         }
+
 
 
 
@@ -37,5 +48,6 @@ namespace DbOperationWithEFCoreApp.Data
         public DbSet<Book> Book { get; set; }
         public DbSet<Price> Price { get; set; }
         public DbSet<Author> Author { get; set; }
+        public DbSet<Author> Authors { get; set; }
     }
 }

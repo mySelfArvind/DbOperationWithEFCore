@@ -34,5 +34,13 @@ namespace DbOperationWithEFCoreApp.Controllers
             await _dbContext.SaveChangesAsync();
             return Ok(authors);
         }
+
+        //[HttpGet("")]
+        //public async Task<IActionResult> GetAllAuthorsWithBooksEager()
+        //{
+        //    var result = await _dbContext.Author.Include(a => a.Book).ToListAsync();
+        //    if (result == null) return NotFound();
+        //    return Ok(result);
+        //}
     }
 }
