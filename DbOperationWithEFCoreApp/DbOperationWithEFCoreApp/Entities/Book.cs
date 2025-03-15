@@ -11,7 +11,7 @@
         
         public int LanguageId { get; set; }
         public int? AuthorId { get; set; }
-        public Language? Language { get; set; }
+        //public Language? Language { get; set; }
         public List<Price>? Price { get; set; }
         public Author? Author { get; set; }
 

@@ -38,5 +38,16 @@ namespace DbOperationWithEFCoreApp.Controllers
                 return NotFound();
             return Ok(language);
         }
+
+        [HttpGet("GetAllLanguagesExplicit")]
+        public async Task<IActionResult> GetAllLanguagesExplicitAsync()
+        {
+            var languages = await _appDbContext.Language.ToListAsync();
+            foreach(var language in languages)
+            {
+                await _appDbContext.Entry(language).Collection(l => l.Book).LoadAsync();
+            }
+            return Ok(languages);
+        }
     }
 }

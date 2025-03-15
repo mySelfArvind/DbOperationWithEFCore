@@ -3,6 +3,7 @@ using DbOperationWithEFCoreApp.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace DbOperationWithEFCoreApp.Controllers
 {
@@ -28,25 +29,25 @@ namespace DbOperationWithEFCoreApp.Controllers
             return Ok(book);
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> GetAllBooks()
-        {
-            var result = await _dbContext.Book.Select(b => new
-            {
-                BookId = b.Id,
-                Title = b.Title,
-                Description = b.Description,
-                NoOfPages = b.NoOfPages,
-                IsActive = b.IsActive,
-                CreatedOn = b.CreatedOn,
-                BookLanguageId = b.LanguageId,
-                AuthorName = b.Author.Name,
-                Language = b.Language.Title
-            }).ToListAsync();
-            if (result == null)
-                return NotFound();
-            return Ok(result);
-        }
+        //[HttpGet("")]
+        //public async Task<IActionResult> GetAllBooks()
+        //{
+        //    var result = await _dbContext.Book.Select(b => new
+        //    {
+        //        BookId = b.Id,
+        //        Title = b.Title,
+        //        Description = b.Description,
+        //        NoOfPages = b.NoOfPages,
+        //        IsActive = b.IsActive,
+        //        CreatedOn = b.CreatedOn,
+        //        BookLanguageId = b.LanguageId,
+        //        AuthorName = b.Author.Name,
+        //        Language = b.Language.Title
+        //    }).ToListAsync();
+        //    if (result == null)
+        //        return NotFound();
+        //    return Ok(result);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> AddBooks([FromBody] List<Book> books)
@@ -139,5 +140,16 @@ namespace DbOperationWithEFCoreApp.Controllers
             if (result == null) return NotFound();
             return Ok(result);
         }
+
+        //[HttpGet("")]
+        //public async Task<IActionResult> GetAllBookExplicitAsync()
+        //{
+        //    var book = await _dbContext.Book.FirstOrDefaultAsync();
+
+        //    await _dbContext.Entry(book).Reference(b => b.Author).LoadAsync();
+        //    await _dbContext.Entry(book).Reference(b => b.Language).LoadAsync();
+            
+        //    return Ok(book);
+        //}
     }
 }
