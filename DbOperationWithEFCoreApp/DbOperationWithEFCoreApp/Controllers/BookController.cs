@@ -31,7 +31,18 @@ namespace DbOperationWithEFCoreApp.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAllBooks()
         {
-            var result = await _dbContext.Book.Select(b => new { Id = b.Id, Title = b.Title, Description = b.Description, NoOfPages = b.NoOfPages, IsActive = b.IsActive, CreatedOn = b.CreatedOn, LanguageId = b.LanguageId }).ToListAsync();
+            var result = await _dbContext.Book.Select(b => new 
+            { 
+                BookId = b.Id, 
+                Title = b.Title, 
+                Description = b.Description, 
+                NoOfPages = b.NoOfPages, 
+                IsActive = b.IsActive, 
+                CreatedOn = b.CreatedOn, 
+                BookLanguageId = b.LanguageId,
+                AuthorName = b.Author.Name,
+                Language = b.Language.Title
+            }).ToListAsync();
             if (result == null)
                 return NotFound();
             return Ok(result);
