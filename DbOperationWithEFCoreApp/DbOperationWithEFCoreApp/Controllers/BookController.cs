@@ -148,8 +148,21 @@ namespace DbOperationWithEFCoreApp.Controllers
 
         //    await _dbContext.Entry(book).Reference(b => b.Author).LoadAsync();
         //    await _dbContext.Entry(book).Reference(b => b.Language).LoadAsync();
-            
+
         //    return Ok(book);
         //}
+
+        #region LAZY LOADING
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetAllBooksAndAuthorLazyAsync()
+        {
+            var book = await _dbContext.Book.FirstOrDefaultAsync();
+            //var author = book?.Author;
+            if (book == null) return NotFound();
+            return Ok(book);
+        }
+
+        #endregion
     }
 }

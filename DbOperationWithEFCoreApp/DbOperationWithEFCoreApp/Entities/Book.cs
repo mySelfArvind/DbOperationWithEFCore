@@ -11,9 +11,9 @@
         
         public int LanguageId { get; set; }
         public int? AuthorId { get; set; }
-        //public Language? Language { get; set; }
-        public List<Price>? Price { get; set; }
-        public Author? Author { get; set; }
+        public virtual Language? Language { get; set; }
+        public virtual List<Price>? Price { get; set; }
+        public virtual Author? Author { get; set; }
 
     }
 }
