@@ -164,5 +164,58 @@ namespace DbOperationWithEFCoreApp.Controllers
         }
 
         #endregion
+
+        #region RAW SQL
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetAllBookRaw()
+        {
+            string IdVal = "6";
+            string whereCond = "id";
+            string query = $"select top 3 * from book";
+            //var books = await _dbContext.Book.FromSql(query).ToListAsync();
+            var books = await _dbContext.Book.FromSqlRaw(query).ToListAsync();
+            if (books == null) return NotFound();
+            return Ok(books);
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetAllBookProc()
+        {
+            var result = await _dbContext.Book.FromSql($"EXEC GetAllBook").ToListAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetBookByIdProc()
+        {
+            var result = await _dbContext.Book.FromSql($"EXEC GetBookById 6").ToListAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetBookUsingDatabase([FromRoute] int id)
+        {
+            var results = await _dbContext.Database.SqlQuery<bookdto>($"EXEC GetBookById {id}").ToListAsync();
+            return Ok(results);
+        }
+
+        #endregion
+    }
+
+    public class bookdto
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int NoOfPages { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string Language { get; set; }
+        public string Author { get; set; }
+        public string Email { get; set; }
+        public string Country { get; set; }
+
+
     }
 }

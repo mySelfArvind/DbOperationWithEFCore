@@ -14,7 +14,7 @@ namespace DbOperationWithEFCoreApp
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options
-                .UseLazyLoadingProxies()
+                //.UseLazyLoadingProxies()
                 .UseSqlServer(builder.Configuration.GetConnectionString("AppDb"))
                 .LogTo(Console.WriteLine);
             });
